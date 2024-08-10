@@ -12,14 +12,14 @@ class CreateContactScreen extends StatelessWidget {
     return Container(
       height: height * 1,
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.indigo,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
+          const Padding(
+            padding: EdgeInsets.all(15.0),
             child: Column(
               children: [
                 Text(
@@ -32,14 +32,14 @@ class CreateContactScreen extends StatelessWidget {
           Expanded(
             child: Container(
               color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Column(
                   children: [
                     TextField(
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Enter Name'),
+                          labelText: ContactText.enterYourName),
                     ),
                   ],
                 ),
