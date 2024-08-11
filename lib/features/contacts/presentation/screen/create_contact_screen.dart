@@ -1,3 +1,4 @@
+import 'package:contact_book/constant/app_space.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constant/text_constant.dart';
@@ -32,14 +33,23 @@ class CreateContactScreen extends StatelessWidget {
           Expanded(
             child: Container(
               color: Colors.white,
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
+                    Image.asset(ContactIcon.personIcon),
+                    AppSpace.height20,
                     TextField(
                       decoration: InputDecoration(
+                          prefixIcon: Image.asset(ContactIcon.personIcon),
                           border: OutlineInputBorder(),
                           labelText: ContactText.enterYourName),
+                    ),
+                    AppSpace.height15,
+                    const TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: ContactText.enterYourNumber),
                     ),
                   ],
                 ),

@@ -10,4 +10,7 @@ class AppSpace {
   static const height15 = SizedBox(
     height: 15,
   );
+  static const height20 = SizedBox(
+    height: 20,
+  );
 }
