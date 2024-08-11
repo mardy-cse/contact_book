@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../constant/text_constant.dart';
 import '../../../../constant/widget/custom_appbar_widget.dart';
+import '../../../../constant/widget/custom_listview_builder.dart';
 import 'create_contact_screen.dart';
 
 class MyContactScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class MyContactScreen extends StatelessWidget {
       appBar: CustomAppbarWidget(
         appBarTitle: ContactText.contactAppBarTitle,
       ),
-      body: Container(),
+      body: const ListViewBuilder(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         onPressed: () {
