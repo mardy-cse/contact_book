@@ -14,6 +14,3 @@ mixin ContactIcon {
   static const person3Icon = 'assets/icon/contacts/images.jpeg';
   static const Mlogo = 'assets/icon/contacts/M-logo.png';
 }
-// class TextStyle{
-//
-// }
