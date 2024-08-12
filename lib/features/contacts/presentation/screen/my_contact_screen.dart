@@ -9,7 +9,7 @@ import 'create_contact_screen.dart';
 class MyContactScreen extends StatelessWidget {
   //const MyContactScreen({super.key});
 
-  var name = [
+  List<String> name = [
     'Mahfujul Haque',
     'Markoney',
     'Md Ruhul Amin',
@@ -22,11 +22,20 @@ class MyContactScreen extends StatelessWidget {
     'Nazmus Sakib',
     'Puspita BA',
     'Rasel BA Gazipur',
-    'Rasel BA Gazipur',
-    'Rasel BA Gazipur',
-    'Rasel BA Gazipur',
-    'Rasel BA Gazipur',
-    'Rasel BA Gazipur',
+  ];
+  List<int> number = [
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
+    01311062117,
   ];
 
   @override
@@ -36,14 +45,33 @@ class MyContactScreen extends StatelessWidget {
         appBarTitle: ContactText.contactAppBarTitle,
       ),
       // body: const ListViewBuilder(),
-      body: ListView.builder(
+      body: Card(
+        color: Colors.white54,
+        elevation: 8,
+        shadowColor: Colors.indigoAccent,
+        child: GridView.builder(
           itemCount: name.length,
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemBuilder: (context, index) {
             return ContactViewWidget(
               circularIcon: ContactIcon.Mlogo,
               contactName: name[index],
+              // number: number[index].toString(),
+              number: ContactText.enterYourNumber,
+              address: ContactText.enterYourAddress,
             );
-          }),
+          },
+        ),
+      ),
+      // ListView.builder(
+      //     itemCount: famillyName.length,
+      //     itemBuilder: (context, index) {
+      //       return ContactViewWidget(
+      //         circularIcon: ContactIcon.Mlogo,
+      //         contactName: famillyName[index],
+      //       );
+      //     }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         onPressed: () {
