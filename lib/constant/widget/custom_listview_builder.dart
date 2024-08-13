@@ -67,13 +67,13 @@ class ListViewBuilder extends StatelessWidget {
 }
 
 /// Modified....
-class ContactViewWidget extends StatelessWidget {
+class ContactGridViewWidget extends StatelessWidget {
   final String circularIcon;
   final String contactName;
   final String number;
   final String address;
 
-  const ContactViewWidget({
+  const ContactGridViewWidget({
     super.key,
     required this.circularIcon,
     required this.contactName,
