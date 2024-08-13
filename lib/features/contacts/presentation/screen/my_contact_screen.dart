@@ -4,11 +4,16 @@ import 'package:get/get.dart';
 import '../../../../constant/text_constant.dart';
 import '../../../../constant/widget/custom_appbar_widget.dart';
 import '../widget/contact_grid_view_widget.dart';
+import '../widget/contact_list_view_widget.dart';
 import '../widget/create_contact_bottom_sheet_widget.dart';
 
-class MyContactScreen extends StatelessWidget {
-  //const MyContactScreen({super.key});
+class MyContactScreen extends StatefulWidget {
+  @override
+  State<MyContactScreen> createState() => _MyContactScreenState();
+}
 
+class _MyContactScreenState extends State<MyContactScreen> {
+  //const MyContactScreen({super.key});
   List<String> name = [
     'Mahfujul Haque',
     'Markoney',
@@ -23,6 +28,7 @@ class MyContactScreen extends StatelessWidget {
     'Puspita BA',
     'Rasel BA Gazipur',
   ];
+
   List<int> number = [
     01311062117,
     01311062117,
@@ -38,6 +44,8 @@ class MyContactScreen extends StatelessWidget {
     01311062117,
   ];
 
+  bool isGridView = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +53,10 @@ class MyContactScreen extends StatelessWidget {
         appBarTitle: ContactText.contactAppBarTitle,
         action: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              isGridView = false;
+              setState(() {});
+            },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(
@@ -55,7 +66,10 @@ class MyContactScreen extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              isGridView = true;
+              setState(() {});
+            },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(
@@ -66,33 +80,33 @@ class MyContactScreen extends StatelessWidget {
           ),
         ],
       ),
-      // body: const ListViewBuilder(),
-      body: Card(
-        color: Colors.white54,
-        elevation: 8,
-        shadowColor: Colors.indigoAccent,
-        child: GridView.builder(
-          itemCount: name.length,
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (context, index) {
-            return ContactGridViewWidget(
-              circularIcon: ContactIcon.Mlogo,
-              contactName: name[index],
-              number: ContactText.enterYourNumber,
-              address: ContactText.enterYourAddress,
-            );
-          },
-        ),
-      ),
-      // ListView.builder(
-      //     itemCount: famillyName.length,
-      //     itemBuilder: (context, index) {
-      //       return ContactViewWidget(
-      //         circularIcon: ContactIcon.Mlogo,
-      //         contactName: famillyName[index],
-      //       );
-      //     }),
+      body: isGridView
+          ? Card(
+              color: Colors.white54,
+              elevation: 8,
+              shadowColor: Colors.indigoAccent,
+              child: GridView.builder(
+                itemCount: name.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (context, index) {
+                  return ContactGridViewWidget(
+                    circularIcon: ContactIcon.Mlogo,
+                    contactName: name[index],
+                    number: ContactText.enterYourNumber,
+                    address: ContactText.enterYourAddress,
+                  );
+                },
+              ),
+            )
+          : ListView.builder(
+              itemCount: name.length,
+              itemBuilder: (context, index) {
+                return ContactListViewWidget(
+                  circularIcon: ContactIcon.Mlogo,
+                  contactName: name[index],
+                );
+              }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         onPressed: () {
