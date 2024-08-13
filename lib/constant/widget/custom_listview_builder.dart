@@ -67,19 +67,12 @@ class ListViewBuilder extends StatelessWidget {
 }
 
 /// Modified....
-class ContactGridViewWidget extends StatelessWidget {
+class ContactViewWidget extends StatelessWidget {
   final String circularIcon;
   final String contactName;
-  final String number;
-  final String address;
 
-  const ContactGridViewWidget({
-    super.key,
-    required this.circularIcon,
-    required this.contactName,
-    required this.number,
-    required this.address,
-  });
+  const ContactViewWidget(
+      {super.key, required this.circularIcon, required this.contactName});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +81,7 @@ class ContactGridViewWidget extends StatelessWidget {
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Column(
+          child: Row(
             children: [
               CircleAvatar(
                 radius: 22,
@@ -97,17 +90,7 @@ class ContactGridViewWidget extends StatelessWidget {
               AppSpace.width20,
               Text(
                 contactName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 15),
-              ),
-              Text(
-                number,
-                style: const TextStyle(fontSize: 15),
-              ),
-              Text(
-                address,
-                style: const TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           ),
