@@ -54,12 +54,9 @@ class MyContactScreen extends StatelessWidget {
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemBuilder: (context, index) {
-            return ContactGridViewWidget(
+            return ContactViewWidget(
               circularIcon: ContactIcon.Mlogo,
               contactName: name[index],
-              // number: number[index].toString(),
-              number: ContactText.enterYourNumber,
-              address: ContactText.enterYourAddress,
             );
           },
         ),
