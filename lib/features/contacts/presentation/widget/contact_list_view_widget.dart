@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../app_space.dart';
+import '../../../../constant/app_space.dart';
 
-class ContactViewWidget extends StatelessWidget {
+class ContactListViewWidget extends StatelessWidget {
   final String circularIcon;
   final String contactName;
 
-  const ContactViewWidget(
+  const ContactListViewWidget(
       {super.key, required this.circularIcon, required this.contactName});
 
   @override

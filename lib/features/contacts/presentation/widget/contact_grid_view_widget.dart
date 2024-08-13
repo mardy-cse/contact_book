@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app_space.dart';
+import '../../../../constant/app_space.dart';
 
 class ContactGridViewWidget extends StatelessWidget {
   final String circularIcon;

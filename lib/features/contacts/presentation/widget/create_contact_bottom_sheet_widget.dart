@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../constant/text_constant.dart';
 
-class CreateContactScreen extends StatelessWidget {
+class CreateContactBottomSheetWidget extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
   TextEditingController emailController = TextEditingController();

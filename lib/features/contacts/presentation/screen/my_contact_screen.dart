@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constant/text_constant.dart';
-import '../../../../constant/widget/contact_grid_view_widget.dart';
 import '../../../../constant/widget/custom_appbar_widget.dart';
-import 'create_contact_screen.dart';
+import '../widget/contact_grid_view_widget.dart';
+import '../widget/create_contact_bottom_sheet_widget.dart';
 
 class MyContactScreen extends StatelessWidget {
   //const MyContactScreen({super.key});
@@ -43,6 +43,28 @@ class MyContactScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppbarWidget(
         appBarTitle: ContactText.contactAppBarTitle,
+        action: [
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.list,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.grid_view,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
       // body: const ListViewBuilder(),
       body: Card(
@@ -54,9 +76,11 @@ class MyContactScreen extends StatelessWidget {
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemBuilder: (context, index) {
-            return ContactViewWidget(
+            return ContactGridViewWidget(
               circularIcon: ContactIcon.Mlogo,
               contactName: name[index],
+              number: ContactText.enterYourNumber,
+              address: ContactText.enterYourAddress,
             );
           },
         ),
@@ -73,7 +97,7 @@ class MyContactScreen extends StatelessWidget {
         backgroundColor: Colors.indigo,
         onPressed: () {
           Get.bottomSheet(
-            CreateContactScreen(),
+            CreateContactBottomSheetWidget(),
             backgroundColor: Colors.white,
             isScrollControlled: true,
           );
