@@ -87,7 +87,7 @@ class _MyContactScreenState extends State<MyContactScreen> {
               shadowColor: Colors.indigoAccent,
               child: GridView.builder(
                 itemCount: name.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (context, index) {
                   return ContactGridViewWidget(
@@ -99,14 +99,22 @@ class _MyContactScreenState extends State<MyContactScreen> {
                 },
               ),
             )
-          : ListView.builder(
-              itemCount: name.length,
-              itemBuilder: (context, index) {
-                return ContactListViewWidget(
-                  circularIcon: ContactIcon.Mlogo,
-                  contactName: name[index],
-                );
-              }),
+          : Padding(
+              padding: const EdgeInsets.only(bottom: 80),
+              child: ListView.builder(
+                  itemCount: name.length,
+                  itemBuilder: (context, index) {
+                    return ContactListViewWidget(
+                      circularIcon: ContactIcon.Mlogo,
+                      contactName: name[index],
+                      phoneNumber: ContactText.enterYourNumber,
+                      callIcon: ContactIcon.callIcon,
+                      onCallIconTapped: () {
+                        print('callIcon tapped');
+                      },
+                    );
+                  }),
+            ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         onPressed: () {

@@ -1,33 +1,44 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constant/app_space.dart';
-
 class ContactListViewWidget extends StatelessWidget {
   final String circularIcon;
   final String contactName;
+  final String phoneNumber;
+  final String callIcon;
+  final VoidCallback onCallIconTapped;
 
   const ContactListViewWidget(
-      {super.key, required this.circularIcon, required this.contactName});
+      {super.key,
+      required this.circularIcon,
+      required this.contactName,
+      required this.phoneNumber,
+      required this.callIcon,
+      required this.onCallIconTapped});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 8),
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: 22,
-                backgroundImage: AssetImage(circularIcon),
-              ),
-              AppSpace.width20,
-              Text(
-                contactName,
-                style: const TextStyle(fontSize: 16),
-              ),
-            ],
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 22,
+            backgroundImage: AssetImage(circularIcon),
+          ),
+          title: Text(
+            contactName,
+            style: const TextStyle(fontSize: 16),
+          ),
+          subtitle: Text(
+            phoneNumber,
+            style: const TextStyle(fontSize: 13),
+          ),
+          trailing: GestureDetector(
+            onTap: onCallIconTapped,
+            child: CircleAvatar(
+              radius: 22,
+              backgroundImage: AssetImage(callIcon),
+            ),
           ),
         ),
       ),

@@ -13,6 +13,7 @@ mixin ContactIcon {
   static const person2Icon = 'assets/icon/contacts/person (2).png';
   static const person3Icon = 'assets/icon/contacts/images.jpeg';
   static const Mlogo = 'assets/icon/contacts/M-logo.png';
+  static const callIcon = 'assets/icon/contacts/callicon.png';
 }
 mixin HomeText {
   // static const appName = 'Contacts';
