@@ -1,7 +1,6 @@
+import 'package:contact_book/features/home/presentation/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'features/contacts/presentation/screen/my_contact_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +19,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
           useMaterial3: true,
         ),
-        home: MyContactScreen());
+        home: HomeScreen());
+    // home: MyContactScreen());
   }
 }
