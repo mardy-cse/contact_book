@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../contacts/presentation/screen/my_contact_screen.dart';
 import '../widget/home_screen_widget.dart';
 
 class HomeScreen extends StatelessWidget {
-  List<String> images = [
+  final List<String> images = [
     'assets/icon/home/images1.png',
     'assets/icon/home/images2.png',
     'assets/icon/home/images3.png',
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
     'assets/icon/home/images9.png',
     'assets/icon/home/images10.png',
   ];
-  List<String> appName = [
+  final List<String> appName = [
     'Settings',
     'Contact',
     'Message',
@@ -38,13 +39,21 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
           itemCount: images.length,
-
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5),
           itemBuilder: (context, index) {
             return HomeScreenWidget(
               circularIcon: images[index],
               appName: appName[index],
+              onTap: () {
+                ///We can also perform it using switch case
+                if (appName[index] == 'Contact') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyContactScreen()));
+                } else {}
+              },
             );
           },
         ),

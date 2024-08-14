@@ -10,16 +10,26 @@ class CustomAppbarWidget extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: Text(
-          appBarTitle.toUpperCase(),
-          softWrap: true,
-          style: TextStyle(
-            color: Colors.white,
-          ),
+      title: Text(
+        appBarTitle.toUpperCase(),
+        softWrap: true,
+        style: TextStyle(
+          color: Colors.white,
         ),
-        centerTitle: true,
-        backgroundColor: Colors.indigo,
-        actions: action);
+      ),
+      centerTitle: true,
+      backgroundColor: Colors.indigo,
+      actions: action,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   @override
