@@ -46,6 +46,12 @@ class _MyContactScreenState extends State<MyContactScreen> {
 
   bool isGridView = true;
 
+  void toggleView() {
+    setState(() {
+      isGridView = !isGridView;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,31 +59,28 @@ class _MyContactScreenState extends State<MyContactScreen> {
         appBarTitle: ContactText.contactAppBarTitle,
         action: [
           GestureDetector(
-            onTap: () {
-              isGridView = false;
-              setState(() {});
-            },
+            onTap: toggleView,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(
-                Icons.list,
+                isGridView ? Icons.list : Icons.grid_view,
                 color: Colors.white,
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              isGridView = true;
-              setState(() {});
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.grid_view,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     isGridView = true;
+          //     setState(() {});
+          //   },
+          //   child: const Padding(
+          //     padding: EdgeInsets.all(8.0),
+          //     child: Icon(
+          //       Icons.grid_view,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       body: isGridView
@@ -124,7 +127,7 @@ class _MyContactScreenState extends State<MyContactScreen> {
             isScrollControlled: true,
           );
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
