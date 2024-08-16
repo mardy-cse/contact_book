@@ -1,15 +1,14 @@
 import 'package:contact_book/constant/app_space.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../constant/text_constant.dart';
+import '../controller/contact_controller.dart';
 
 class CreateContactBottomSheetWidget extends StatelessWidget {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController numberController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-
   @override
+  ContactController contactController = Get.find<ContactController>();
+
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -47,7 +46,7 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                       ),
                       AppSpace.height20,
                       TextField(
-                        controller: nameController,
+                        controller: contactController.nameController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
@@ -58,7 +57,7 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                       ),
                       AppSpace.height15,
                       TextField(
-                        controller: numberController,
+                        controller: contactController.numberController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
@@ -70,7 +69,7 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                       ),
                       AppSpace.height15,
                       TextField(
-                        controller: emailController,
+                        controller: contactController.emailController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
@@ -82,7 +81,7 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                       ),
                       AppSpace.height15,
                       TextField(
-                        controller: addressController,
+                        controller: contactController.addressController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
@@ -117,9 +116,21 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                                 style: ButtonStyle(
                                     backgroundColor: WidgetStatePropertyAll(
                                         Colors.indigoAccent)),
-                                onPressed: () {
-                                  if (nameController.text != '' &&
-                                      numberController.text != '') {
+                                onPressed: () async {
+                                  if (contactController.nameController.text !=
+                                          '' &&
+                                      contactController.numberController.text !=
+                                          '') {
+                                    await contactController.saveContact(
+                                      name:
+                                          contactController.nameController.text,
+                                      number: contactController
+                                          .numberController.text,
+                                      email: contactController
+                                          .emailController.text,
+                                      address: contactController
+                                          .addressController.text,
+                                    );
                                     Navigator.pop(context);
                                   }
                                 },

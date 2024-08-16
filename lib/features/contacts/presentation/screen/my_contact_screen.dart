@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,45 +18,7 @@ class MyContactScreen extends StatefulWidget {
 }
 
 class _MyContactScreenState extends State<MyContactScreen> {
-  //const MyContactScreen({super.key});
-  List<String> name = [
-    'Mahfujul Haque',
-    'Markoney',
-    'Md Ruhul Amin',
-    'Md Sakibul Hasan',
-    'Md Sakir Ahmed',
-    'Md Abir BA',
-    'MD.Mithu Pramanik',
-    'Md Sakhwat Hossen',
-    'Mostafiz vai BA',
-    'Nazmus Sakib',
-    'Puspita BA',
-    'Rasel BA Gazipur',
-  ];
-
-  List<int> number = [
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-    1311062117,
-  ];
-
-  // bool isGridView = true;
   ContactController contactController = Get.put(ContactController());
-
-  // void toggleView() {
-  //   setState(() {
-  //     isGridView = !isGridView;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -92,87 +55,87 @@ class _MyContactScreenState extends State<MyContactScreen> {
           // ),
         ],
       ),
-      body: Obx(() {
-        return contactController.isGridView.value
-            ? Card(
-                color: Colors.white54,
-                elevation: 8,
-                shadowColor: Colors.indigoAccent,
-                child: GridView.builder(
-                  itemCount: name.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (context, index) {
-                    return ContactGridViewWidget(
-                      circularIcon: ContactIcon.Mlogo,
-                      contactName: name[index],
-                      number: ContactText.enterYourNumber,
-                      address: ContactText.enterYourAddress,
-                    );
-                  },
-                ),
-              )
-            : ListView.builder(
-                itemCount: name.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      ContactListViewWidget(
-                        circularIcon: ContactIcon.Mlogo,
-                        contactName: name[index],
-                        phoneNumber: ContactText.enterYourNumber,
-                        callIcon: ContactIcon.callIcon,
-                        onCallIconTapped: () async {
-                          // print('mim');
-                          final Uri phoneUri = Uri(
-                            scheme: 'tel',
-                            path: '01798638702',
-                            // path: number[index].toString(),
-                            // Dynamic number
-                          );
-                          print('Phone URI: $phoneUri');
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('Contacts').snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return Obx(() {
+                  return contactController.isGridView.value
+                      ? Card(
+                          color: Colors.white54,
+                          elevation: 8,
+                          shadowColor: Colors.indigoAccent,
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data?.docs.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2),
+                            itemBuilder: (context, index) {
+                              var data = snapshot.data?.docs[index];
+                              return ContactGridViewWidget(
+                                circularIcon: ContactIcon.Mlogo,
+                                contactName: data?['name'],
+                                number: data?['number'],
+                                address: ContactText.enterYourAddress,
+                              );
+                            },
+                          ),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data?.docs.length,
+                          itemBuilder: (context, index) {
+                            var data = snapshot.data?.docs[index];
+                            return Column(
+                              children: [
+                                ContactListViewWidget(
+                                  circularIcon: ContactIcon.Mlogo,
+                                  contactName: data?['name'],
+                                  phoneNumber: data?['number'],
+                                  callIcon: ContactIcon.callIcon,
+                                  onCallIconTapped: () async {
+                                    final Uri phoneUri = Uri(
+                                      scheme: 'tel',
+                                      path: data?['number'],
+                                    );
+                                    print('Phone URI: $phoneUri');
 
-                          try {
-                            if (await canLaunchUrl(phoneUri)) {
-                              await launchUrl(phoneUri);
-                            }
-                            // else {
-                            //   throw 'Could not launch $phoneUri';
-                            // }
-                          } catch (e, s) {
-                            print('Error: $e');
-                            print('Strec: $s');
-                          }
-                        },
-                        // {
-                        //   Future<void> _makePhoneCall(
-                        //       String phoneNumber) async {
-                        //     final Uri phoneUri = Uri(
-                        //       scheme: 'tel',
-                        //       path: '+880${number[index]}',
-                        //     );
-                        //
-                        //     if (await Permission.phone.request().isGranted) {
-                        //       if (await canLaunchUrl(phoneUri)) {
-                        //         await launchUrl(phoneUri);
-                        //       } else {
-                        //         print('Could not launch $phoneUri');
-                        //       }
-                        //     } else {
-                        //       print('Phone permission is not granted');
-                        //     }
-                        //   }
-                        // }
-                      ),
-                      index == name.length - 1
-                          ? const SizedBox(
-                              height: 70,
-                            )
-                          : const SizedBox()
-                    ],
-                  );
+                                    try {
+                                      if (await canLaunchUrl(phoneUri)) {
+                                        await launchUrl(phoneUri);
+                                      }
+                                    } catch (e, s) {
+                                      print('Error: $e');
+                                      print('Strec: $s');
+                                    }
+                                  },
+                                ),
+                                index == snapshot.data!.docs.length - 1
+                                    ? const SizedBox(
+                                        height: 70,
+                                      )
+                                    : const SizedBox()
+                              ],
+                            );
+                          });
                 });
-      }),
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text(snapshot.hasError.toString()),
+                );
+              } else {
+                return Center(
+                  child: Text('No Contacts Found'),
+                );
+              }
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         onPressed: () {
