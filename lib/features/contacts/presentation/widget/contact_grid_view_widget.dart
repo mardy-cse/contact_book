@@ -51,7 +51,7 @@ class ContactGridViewWidget extends StatelessWidget {
               onTap: onCallIconTapped,
               child: CircleAvatar(
                 radius: 20,
-                backgroundImage: AssetImage(callIcon!),
+                backgroundImage: AssetImage(callIcon ?? ''),
               ),
               onLongPress: () {
                 Container(

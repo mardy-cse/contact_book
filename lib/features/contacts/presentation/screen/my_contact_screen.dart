@@ -62,26 +62,36 @@ class _MyContactScreenState extends State<MyContactScreen> {
               if (snapshot.hasData) {
                 return Obx(() {
                   return contactController.isGridView.value
-                      ? Card(
-                          color: Colors.white54,
-                          elevation: 8,
-                          shadowColor: Colors.indigoAccent,
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data?.docs.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2),
-                            itemBuilder: (context, index) {
-                              var data = snapshot.data?.docs[index];
-                              return ContactGridViewWidget(
-                                circularIcon: ContactIcon.Mlogo,
-                                contactName: data?['name'],
-                                number: data?['number'],
-                                address: ContactText.enterYourAddress,
-                              );
-                            },
-                          ),
+                      ? GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data?.docs.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
+                          itemBuilder: (context, index) {
+                            var data = snapshot.data?.docs[index];
+                            return ContactGridViewWidget(
+                              circularIcon: ContactIcon.Mlogo,
+                              contactName: data?['name'],
+                              number: data?['number'],
+                              address: data?['address'],
+                              callIcon: ContactIcon.callIcon,
+                              onCallIconTapped: () async {
+                                final Uri phoneUri = Uri(
+                                  scheme: 'tel',
+                                  // path: '01798638702',
+                                  path: data?['number'],
+                                  // Dynamic number
+                                );
+                                print('Phone URI: $phoneUri');
+                                if (await canLaunchUrl(phoneUri)) {
+                                  await launchUrl(phoneUri);
+                                } else {
+                                  throw 'Could not launch $phoneUri';
+                                }
+                              },
+                            );
+                          },
                         )
                       : ListView.builder(
                           shrinkWrap: true,
