@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068678599568",
+    "project_id": "compact-app-6cc6a",
+    "storage_bucket": "compact-app-6cc6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068678599568:android:ec28b7017f926fb6861915",
+        "android_client_info": {
+          "package_name": "com.example.contact_book"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCOtaXGaulJjhToKpIh9iwzTPj6LxZhhw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,17 @@
 import 'package:contact_book/features/home/presentation/screen/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+    apiKey: "AIzaSyCCOtaXGaulJjhToKpIh9iwzTPj6LxZhhw",
+    appId: "1:1068678599568:android:ec28b7017f926fb6861915",
+    messagingSenderId: "1068678599568",
+    projectId: "compact-app-6cc6a",
+  ));
   runApp(const MyApp());
 }
 
