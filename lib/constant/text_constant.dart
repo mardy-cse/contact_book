@@ -16,7 +16,8 @@ mixin ContactIcon {
   static const callIcon = 'assets/icon/contacts/callicon.png';
 }
 mixin HomeText {
-  // static const appName = 'Contacts';
+  static const drawerPic = 'Sanjida Mim';
+  static const subTitlename = 'mstsanjidamim93@gmail.com';
 }
 mixin HomeIcon {
   static const images1Icon = 'assets/icon/home/images1.jpeg';
@@ -29,4 +30,5 @@ mixin HomeIcon {
   static const images8Icon = 'assets/icon/home/images8.png';
   static const images9Icon = 'assets/icon/home/images9.png';
   static const images10Icon = 'assets/icon/home/images10.png';
+  static const homeBackground = 'assets/icon/home/home_background.png';
 }
