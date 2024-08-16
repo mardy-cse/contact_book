@@ -8,8 +8,8 @@ class ContactGridViewWidget extends StatelessWidget {
   final String contactName;
   final String number;
   final String address;
-  final String callIcon;
-  final VoidCallback onCallIconTapped;
+  final String? callIcon;
+  final VoidCallback? onCallIconTapped;
 
   const ContactGridViewWidget({
     super.key,
@@ -17,8 +17,8 @@ class ContactGridViewWidget extends StatelessWidget {
     required this.contactName,
     required this.number,
     required this.address,
-    required this.callIcon,
-    required this.onCallIconTapped,
+    this.callIcon,
+    this.onCallIconTapped,
   });
 
   @override
@@ -51,7 +51,7 @@ class ContactGridViewWidget extends StatelessWidget {
               onTap: onCallIconTapped,
               child: CircleAvatar(
                 radius: 20,
-                backgroundImage: AssetImage(callIcon),
+                backgroundImage: AssetImage(callIcon!),
               ),
               onLongPress: () {
                 Container(
