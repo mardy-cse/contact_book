@@ -127,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MyContactScreen()));
+                            builder: (context) => MyContactScreen()));
                   } else {}
                 },
                 // backgroundImage: HomeIcon.homeBackground,
