@@ -75,21 +75,37 @@ class _MyContactScreenState extends State<MyContactScreen> {
                               contactName: data?['name'],
                               number: data?['number'],
                               address: data?['address'],
-                              callIcon: ContactIcon.callIcon,
+                              elevetedButon: ContactText.callEleveted,
                               onCallIconTapped: () async {
                                 final Uri phoneUri = Uri(
                                   scheme: 'tel',
-                                  // path: '01798638702',
                                   path: data?['number'],
-                                  // Dynamic number
                                 );
                                 print('Phone URI: $phoneUri');
-                                if (await canLaunchUrl(phoneUri)) {
-                                  await launchUrl(phoneUri);
-                                } else {
-                                  throw 'Could not launch $phoneUri';
+
+                                try {
+                                  if (await canLaunchUrl(phoneUri)) {
+                                    await launchUrl(phoneUri);
+                                  }
+                                } catch (e, s) {
+                                  print('Error: $e');
+                                  print('Strec: $s');
                                 }
                               },
+                              // onCallIconTapped: () async {
+                              //   final Uri phoneUri = Uri(
+                              //     scheme: 'tel',
+                              //     // path: '01798638702',
+                              //     path: data?['number'],
+                              //     // Dynamic number
+                              //   );
+                              //   print('Phone URI: $phoneUri');
+                              //   if (await canLaunchUrl(phoneUri)) {
+                              //     await launchUrl(phoneUri);
+                              //   } else {
+                              //     throw 'Could not launch $phoneUri';
+                              //   }
+                              // },
                             );
                           },
                         )

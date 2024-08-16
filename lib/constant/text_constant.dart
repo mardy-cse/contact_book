@@ -9,6 +9,7 @@ mixin ContactText {
   static const save = 'save';
   static const edit = 'Edit';
   static const delete = 'Delete';
+  static const callEleveted = 'call';
 }
 mixin ContactIcon {
   static const personIcon = 'assets/icon/contacts/person.png';
