@@ -1,7 +1,8 @@
-import 'package:contact_book/features/home/presentation/screen/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'features/auth/presentation/screen/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: HomeScreen());
+        // home: HomeScreen());
+        home: LoginScreen());
     // home: MyContactScreen());
   }
 }
