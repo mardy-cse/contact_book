@@ -7,6 +7,7 @@ mixin ContactText {
   static const enterYourAddress = 'Address';
   static const cancel = 'cancel';
   static const save = 'save';
+  static const editContact = 'Edit Contact';
   static const edit = 'Edit';
   static const delete = 'Delete';
   static const callEleveted = 'call';

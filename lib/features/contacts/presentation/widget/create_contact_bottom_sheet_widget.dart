@@ -6,6 +6,10 @@ import '../../../../constant/text_constant.dart';
 import '../controller/contact_controller.dart';
 
 class CreateContactBottomSheetWidget extends StatelessWidget {
+  String edit;
+
+  CreateContactBottomSheetWidget({super.key, required this.edit});
+
   @override
   ContactController contactController = Get.find<ContactController>();
 
@@ -22,12 +26,13 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: Column(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(15.0),
               child: Column(
                 children: [
                   Text(
-                    ContactText.newContact,
+                    // ContactText.edit,
+                    edit,
                     style: TextStyle(color: Colors.white),
                   ),
                 ],

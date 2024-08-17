@@ -11,7 +11,7 @@ import '../widget/contact_list_view_widget.dart';
 import '../widget/create_contact_bottom_sheet_widget.dart';
 
 class MyContactScreen extends StatefulWidget {
-  const MyContactScreen({super.key});
+  MyContactScreen({super.key});
 
   @override
   State<MyContactScreen> createState() => _MyContactScreenState();
@@ -166,7 +166,9 @@ class _MyContactScreenState extends State<MyContactScreen> {
         backgroundColor: Colors.indigo,
         onPressed: () {
           Get.bottomSheet(
-            CreateContactBottomSheetWidget(),
+            CreateContactBottomSheetWidget(
+              edit: ContactText.newContact,
+            ),
             backgroundColor: Colors.white,
             isScrollControlled: true,
           );

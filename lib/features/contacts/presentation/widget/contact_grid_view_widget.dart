@@ -27,6 +27,18 @@ class ContactGridViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      // onLongPress: () {
+      //   // Show bottom sheet for editing contact
+      //   showModalBottomSheet(
+      //     context: context,
+      //     isScrollControlled: true,
+      //     builder: (context) {
+      //       return CreateContactBottomSheetWidget(
+      //         edit: 'Edit Contact',
+      //       );
+      //     },
+      //   );
+      // },
       onLongPress: () {
         showDialog(
           context: context,
@@ -35,11 +47,22 @@ class ContactGridViewWidget extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CreateContactBottomSheetWidget(),
-                      ));
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return CreateContactBottomSheetWidget(
+                        edit: ContactText.editContact,
+                      );
+                    },
+                  );
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => CreateContactBottomSheetWidget(
+                  //         edit: ContactText.edit,
+                  //       ),
+                  //     ));
                 },
                 child: const Text(
                   ContactText.edit,
@@ -86,37 +109,45 @@ class ContactGridViewWidget extends StatelessWidget {
                 address,
                 style: const TextStyle(fontSize: 15),
               ),
-              GestureDetector(
-                onTap: onCallIconTapped,
-                child: ElevatedButton(
-                  style: const ButtonStyle(
-                      fixedSize: WidgetStatePropertyAll(Size(80, 8)),
-                      backgroundColor:
-                          WidgetStatePropertyAll(Colors.indigoAccent)),
-                  onPressed: () {
-                    elevetedButon;
-                    //   {
-                    //     final Uri phoneUri = Uri(
-                    //       scheme: 'tel',
-                    //       path: data?['number'],
-                    //     );
-                    //     print('Phone URI: $phoneUri');
-                    //
-                    //     try {
-                    //       if (await canLaunchUrl(phoneUri)) {
-                    //   await launchUrl(phoneUri);
-                    //   }
-                    //   } catch (e, s) {
-                    //   print('Error: $e');
-                    //   print('Strec: $s');
-                    //   }
-                    // },
-                  },
-                  child: const Text(
-                    ContactText.callEleveted,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
+              ElevatedButton(
+                onPressed: onCallIconTapped,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigoAccent,
+                  fixedSize: const Size(140, 40), // Updated button size
                 ),
+                child: const Text(
+                  ContactText.callEleveted,
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                // ElevatedButton(
+                //   style: const ButtonStyle(
+                //       fixedSize: WidgetStatePropertyAll(Size(80, 8)),
+                //       backgroundColor:
+                //           WidgetStatePropertyAll(Colors.indigoAccent)),
+                //   onPressed: () {
+                //     elevetedButon;
+                //     //   {
+                //     //     final Uri phoneUri = Uri(
+                //     //       scheme: 'tel',
+                //     //       path: data?['number'],
+                //     //     );
+                //     //     print('Phone URI: $phoneUri');
+                //     //
+                //     //     try {
+                //     //       if (await canLaunchUrl(phoneUri)) {
+                //     //   await launchUrl(phoneUri);
+                //     //   }
+                //     //   } catch (e, s) {
+                //     //   print('Error: $e');
+                //     //   print('Strec: $s');
+                //     //   }
+                //     // },
+                //   },
+                //   child: const Text(
+                //     ContactText.callEleveted,
+                //     style: TextStyle(color: Colors.white, fontSize: 16),
+                //   ),
+                // ),
               ),
             ],
           ),
