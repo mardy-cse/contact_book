@@ -27,58 +27,70 @@ class ContactGridViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onLongPress: () {
-      //   // Show bottom sheet for editing contact
-      //   showModalBottomSheet(
-      //     context: context,
-      //     isScrollControlled: true,
-      //     builder: (context) {
-      //       return CreateContactBottomSheetWidget(
-      //         edit: 'Edit Contact',
-      //       );
-      //     },
-      //   );
-      // },
       onLongPress: () {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            backgroundColor: Colors.indigo,
+            backgroundColor: Colors.white,
             actions: [
-              TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) {
-                      return CreateContactBottomSheetWidget(
-                        edit: ContactText.editContact,
-                      );
-                    },
-                  );
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => CreateContactBottomSheetWidget(
-                  //         edit: ContactText.edit,
-                  //       ),
-                  //     ));
-                },
-                child: const Text(
-                  ContactText.edit,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              const SizedBox(
-                width: 80,
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  ContactText.delete,
-                  style: TextStyle(color: Colors.white),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) {
+                            return CreateContactBottomSheetWidget(
+                              edit: ContactText.editContact,
+                            );
+                          },
+                        );
+                      },
+                      child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: Colors.black,
+                            ),
+                            AppSpace.width5,
+                            Text(
+                              ContactText.edit,
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    AppSpace.height10,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              color: Colors.black,
+                            ),
+                            AppSpace.width5,
+                            Text(
+                              ContactText.delete,
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -119,35 +131,6 @@ class ContactGridViewWidget extends StatelessWidget {
                   ContactText.callEleveted,
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                // ElevatedButton(
-                //   style: const ButtonStyle(
-                //       fixedSize: WidgetStatePropertyAll(Size(80, 8)),
-                //       backgroundColor:
-                //           WidgetStatePropertyAll(Colors.indigoAccent)),
-                //   onPressed: () {
-                //     elevetedButon;
-                //     //   {
-                //     //     final Uri phoneUri = Uri(
-                //     //       scheme: 'tel',
-                //     //       path: data?['number'],
-                //     //     );
-                //     //     print('Phone URI: $phoneUri');
-                //     //
-                //     //     try {
-                //     //       if (await canLaunchUrl(phoneUri)) {
-                //     //   await launchUrl(phoneUri);
-                //     //   }
-                //     //   } catch (e, s) {
-                //     //   print('Error: $e');
-                //     //   print('Strec: $s');
-                //     //   }
-                //     // },
-                //   },
-                //   child: const Text(
-                //     ContactText.callEleveted,
-                //     style: TextStyle(color: Colors.white, fontSize: 16),
-                //   ),
-                // ),
               ),
             ],
           ),

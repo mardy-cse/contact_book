@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../constant/app_space.dart';
 import '../../../../constant/text_constant.dart';
 import 'create_contact_bottom_sheet_widget.dart';
 
@@ -27,34 +28,62 @@ class ContactListViewWidget extends StatelessWidget {
           builder: (context) => AlertDialog(
             backgroundColor: Colors.indigo,
             actions: [
-              TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) {
-                      return CreateContactBottomSheetWidget(
-                        edit: ContactText.editContact,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return CreateContactBottomSheetWidget(
+                            edit: ContactText.editContact,
+                          );
+                        },
                       );
                     },
-                  );
-                },
-                child: const Text(
-                  ContactText.edit,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              const SizedBox(
-                width: 80,
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  ContactText.delete,
-                  style: TextStyle(color: Colors.white),
-                ),
+                    child: const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          ),
+                          AppSpace.width5,
+                          Text(
+                            ContactText.edit,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  AppSpace.height10,
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                          ),
+                          AppSpace.width5,
+                          Text(
+                            ContactText.delete,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
