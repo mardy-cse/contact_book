@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:contact_book/constant/app_space.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,45 +7,53 @@ import 'package:get/get.dart';
 import '../../../../constant/text_constant.dart';
 import '../controller/contact_controller.dart';
 
-class CreateContactBottomSheetWidget extends StatelessWidget {
+class CreateContactBottomSheetWidget extends StatefulWidget {
   String title;
-  String updateButton;
+  String buttonName;
   String? name;
   String? number;
   String? email;
   String? address;
+  String? fromWhere;
 
   CreateContactBottomSheetWidget({
     super.key,
     required this.title,
-    required this.updateButton,
+    required this.buttonName,
     this.name,
     this.number,
     this.email,
     this.address,
+    this.fromWhere,
   });
 
   @override
+  State<CreateContactBottomSheetWidget> createState() =>
+      _CreateContactBottomSheetWidgetState();
+}
+
+class _CreateContactBottomSheetWidgetState
+    extends State<CreateContactBottomSheetWidget> {
   ContactController contactController = Get.find<ContactController>();
 
-  Widget build(BuildContext context) {
-    // if (contactController.nameController.text.isEmpty) {
-    //   contactController.nameController.text = name ?? '';
-    // }
-    // if (contactController.numberController.text.isEmpty) {
-    //   contactController.numberController.text = number ?? '';
-    // }
-    // if (contactController.emailController.text.isEmpty) {
-    //   contactController.emailController.text = email ?? '';
-    // }
-    // if (contactController.addressController.text.isEmpty) {
-    //   contactController.addressController.text = address ?? '';
-    // }
-    contactController.nameController.text = name ?? '';
-    contactController.numberController.text = number ?? '';
-    contactController.emailController.text = email ?? '';
-    contactController.addressController.text = address ?? '';
+  @override
+  void initState() {
+    super.initState();
+    if (widget.fromWhere == 'Update') {
+      contactController.nameController.text = widget.name ?? '';
+      contactController.numberController.text = widget.number ?? '';
+      contactController.emailController.text = widget.email ?? '';
+      contactController.addressController.text = widget.address ?? '';
+    } else {
+      contactController.nameController.clear();
+      contactController.numberController.clear();
+      contactController.emailController.clear();
+      contactController.addressController.clear();
+    }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
@@ -62,7 +72,7 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                 children: [
                   Text(
                     // ContactText.edit,
-                    title,
+                    widget.title,
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -152,13 +162,33 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                                     backgroundColor: WidgetStatePropertyAll(
                                         Colors.indigoAccent)),
                                 onPressed: () async {
-                                  // Check if the user is editing or creating a new contact
-                                  if (contactController.nameController.text !=
-                                          '' &&
-                                      contactController.numberController.text !=
-                                          '') {
-                                    if (title == ContactText.editContact) {
-                                      await contactController.updateContact(
+                                  if (widget.fromWhere == 'Update') {
+                                    await contactController
+                                        .updateContact(
+                                      name:
+                                          contactController.nameController.text,
+                                      number: contactController
+                                          .numberController.text,
+                                      email: contactController
+                                          .emailController.text,
+                                      address: contactController
+                                          .addressController.text,
+                                    )
+                                        .then((value) {
+                                      Navigator.pop(context);
+                                      log('Update Contact');
+                                    });
+                                  } else {
+                                    print('SaveTapped');
+                                    print(
+                                        'Name: ${contactController.nameController.text}');
+                                    if (contactController.nameController.text !=
+                                            '' &&
+                                        contactController
+                                                .numberController.text !=
+                                            '') {
+                                      await contactController
+                                          .saveContact(
                                         name: contactController
                                             .nameController.text,
                                         number: contactController
@@ -167,20 +197,12 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                                             .emailController.text,
                                         address: contactController
                                             .addressController.text,
-                                      );
-                                    } else {
-                                      await contactController.saveContact(
-                                        name: contactController
-                                            .nameController.text,
-                                        number: contactController
-                                            .numberController.text,
-                                        email: contactController
-                                            .emailController.text,
-                                        address: contactController
-                                            .addressController.text,
-                                      );
+                                      )
+                                          .then((value) {
+                                        log('Contact Saved');
+                                        Navigator.pop(context);
+                                      });
                                     }
-                                    Navigator.pop(context);
                                   }
                                 },
                                 // async {
@@ -202,7 +224,7 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                                 //   }
                                 // },
                                 child: Text(
-                                  updateButton,
+                                  widget.buttonName,
                                   style: TextStyle(color: Colors.white),
                                 )),
                           ),

@@ -19,6 +19,7 @@ class ContactController extends GetxController {
     String? email,
     String? address,
   }) async {
+    print('SaveFunction Call');
     await FirebaseFirestore.instance.collection('Contacts').doc(name).set({
       'name': nameController.text.toString(),
       'number': numberController.text.toString(),
