@@ -11,6 +11,7 @@ class ContactGridViewWidget extends StatelessWidget {
   final String address;
   final String elevetedButon;
   final VoidCallback onCallIconTapped;
+  final VoidCallback onLongPress;
 
   const ContactGridViewWidget({
     super.key,
@@ -20,6 +21,7 @@ class ContactGridViewWidget extends StatelessWidget {
     required this.address,
     required this.elevetedButon,
     required this.onCallIconTapped,
+    required this.onLongPress,
   });
 
   // var data = snapshot.data?.docs[index];
@@ -27,76 +29,77 @@ class ContactGridViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Colors.white,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (context) {
-                            return CreateContactBottomSheetWidget(
-                              edit: ContactText.editContact,
-                            );
-                          },
-                        );
-                      },
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
-                            AppSpace.width5,
-                            Text(
-                              ContactText.edit,
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    AppSpace.height10,
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.delete,
-                              color: Colors.black,
-                            ),
-                            AppSpace.width5,
-                            Text(
-                              ContactText.delete,
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+      onLongPress: onLongPress,
+      // onLongPress: () {
+      //   showDialog(
+      //     context: context,
+      //     builder: (context) => AlertDialog(
+      //       backgroundColor: Colors.white,
+      //       actions: [
+      //         Padding(
+      //           padding: const EdgeInsets.all(8.0),
+      //           child: Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             mainAxisSize: MainAxisSize.min,
+      //             children: [
+      //               TextButton(
+      //                 onPressed: () {
+      //                   showModalBottomSheet(
+      //                     context: context,
+      //                     isScrollControlled: true,
+      //                     builder: (context) {
+      //                       return CreateContactBottomSheetWidget(
+      //                         title: ContactText.editContact,
+      //                       );
+      //                     },
+      //                   );
+      //                 },
+      //                 child: const Align(
+      //                   alignment: Alignment.centerLeft,
+      //                   child: Row(
+      //                     children: [
+      //                       Icon(
+      //                         Icons.edit,
+      //                         color: Colors.black,
+      //                       ),
+      //                       AppSpace.width5,
+      //                       Text(
+      //                         ContactText.edit,
+      //                         style: TextStyle(color: Colors.black),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ),
+      //               AppSpace.height10,
+      //               TextButton(
+      //                 onPressed: () {
+      //                   Navigator.pop(context);
+      //                 },
+      //                 child: const Align(
+      //                   alignment: Alignment.centerLeft,
+      //                   child: Row(
+      //                     children: [
+      //                       Icon(
+      //                         Icons.delete,
+      //                         color: Colors.black,
+      //                       ),
+      //                       AppSpace.width5,
+      //                       Text(
+      //                         ContactText.delete,
+      //                         style: TextStyle(color: Colors.black),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   );
+      // },
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

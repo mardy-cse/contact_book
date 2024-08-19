@@ -33,4 +33,34 @@ class ContactController extends GetxController {
       },
     );
   }
+
+  Future<void> updateContact({
+    required String name,
+    required String number,
+    String? email,
+    String? address,
+  }) async {
+    try {
+      await FirebaseFirestore.instance.collection('Contacts').doc(name).update({
+        'name': name,
+        'number': number,
+        'email': email,
+        'address': address,
+      });
+      nameController.clear();
+      numberController.clear();
+      emailController.clear();
+      addressController.clear();
+    } catch (e) {
+      // Handle any errors here
+      print("Failed to update contact: $e");
+    }
+  }
 }
+
+// updateContact(
+//     {required String name,
+//     required String number,
+//     required String email,
+//     required String address}) {}
+//  }
