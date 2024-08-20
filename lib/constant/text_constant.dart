@@ -37,3 +37,11 @@ mixin HomeIcon {
   static const images10Icon = 'assets/icon/home/images10.png';
   static const homeBackground = 'assets/icon/home/home_background.png';
 }
+mixin MessegeText {
+  static const title = 'Inbox';
+  static const prefixTo = 'To';
+  static const labelText = 'Name or Phone Number';
+}
+mixin MessegeIcon {
+  static const messegeicon = 'assets/icon/contacts/images.jpeg';
+}
