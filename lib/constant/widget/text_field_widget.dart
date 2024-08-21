@@ -5,12 +5,14 @@ class TextFieldWidget extends StatelessWidget {
   final String labelText;
   TextInputType? keyboardType;
   Widget? suffixIcon;
+  void Function(String)? onChanged;
 
   TextFieldWidget({
     required this.controller,
     required this.labelText,
     this.keyboardType,
     this.suffixIcon,
+    this.onChanged,
   });
 
   @override
@@ -27,6 +29,7 @@ class TextFieldWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: suffixIcon)),
         keyboardType: keyboardType,
+        onChanged: onChanged,
       ),
     );
   }
