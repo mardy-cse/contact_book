@@ -40,8 +40,9 @@ mixin HomeIcon {
 mixin MessegeText {
   static const title = 'Inbox';
   static const prefixTo = 'To';
-  static const labelText = 'Name or Phone Number';
+  static const labelText = 'Recipient';
+  static const newConversation = 'New Conversation';
 }
 mixin MessegeIcon {
-  static const messegeicon = 'assets/icon/contacts/images.jpeg';
+  static const suffixIcon = 'To';
 }

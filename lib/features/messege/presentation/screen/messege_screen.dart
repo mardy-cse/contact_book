@@ -2,37 +2,39 @@ import 'package:contact_book/constant/text_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../widget/messege_bottomsheet_widget.dart';
+
+import '../../../../constant/widget/custom_appbar_widget.dart';
 import '../widget/messege_listview_widget.dart';
+import '../widget/new_conversation_widget.dart';
 
 class MessegeScreen extends StatelessWidget {
   List<String> msgIcon = [
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
-    'assets/icon/contacts/images.jpeg',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
+    'assets/icon/contacts/person (2).png',
   ];
   List<String> name = [
     'mim',
-    'mim',
-    'mim',
-    'mim',
-    'mim',
-    'mim',
-    'mim',
-    'mim',
-    'mim',
-    'mim',
-    'mim',
-    'mim',
+    'minal',
+    'mahi',
+    'aysha',
+    'abrar',
+    'roja',
+    'riya',
+    'ripa',
+    'nafu',
+    'susmi',
+    'sajid',
+    'romij',
   ];
 
   List<DateTime> time = [
@@ -66,40 +68,54 @@ class MessegeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.indigoAccent,
-        leading: DrawerButton(
-          color: Colors.white,
-        ),
-        title: Center(
-          child: Text(
-            MessegeText.title,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        actions: [
-          Icon(
-            Icons.search,
-            color: Colors.white,
-          ),
-        ],
+      appBar: CustomAppbarWidget(
+        appBarTitle: MessegeText.title,
       ),
+      // AppBar(
+      //   backgroundColor: Colors.indigoAccent,
+      //   leading: DrawerButton(
+      //     color: Colors.white,
+      //   ),
+      //   title: Center(
+      //     child: Text(
+      //       MessegeText.title,
+      //       style: TextStyle(color: Colors.white),
+      //     ),
+      //   ),
+      //   actions: [
+      //     Icon(
+      //       Icons.search,
+      //       color: Colors.white,
+      //     ),
+      //   ],
+      // ),
       body: ListView.builder(
         itemCount: name.length,
         itemBuilder: (context, index) {
           String formattedTime = DateFormat('hh:mm a').format(time[index]);
-          return MessegeListviewWidget(
-            msgIcon: msgIcon[index],
-            name: name[index],
-            time: formattedTime,
+          return GestureDetector(
+            onTap: () {
+              Get.to(
+                NewConversationWidget(
+                  name: name[index],
+                ),
+              );
+            },
+            child: MessegeListviewWidget(
+              msgIcon: msgIcon[index],
+              name: name[index],
+              time: formattedTime,
+            ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         onPressed: () {
-          Get.bottomSheet(
-            const MessegeBottomsheetWidget(),
+          Get.to(
+            NewConversationWidget(
+              name: '',
+            ),
           );
         },
         child: const Icon(

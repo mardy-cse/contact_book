@@ -124,18 +124,32 @@ class HomeScreen extends StatelessWidget {
                 appName: appName[index],
                 onTap: () {
                   ///We can also perform it using switch case
-                  if (appName[index] == 'Contact') {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MyContactScreen()));
-                  } else {}
-                  if (appName[index] == 'Message') {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MessegeScreen()));
-                  } else {}
+                  switch (appName[index]) {
+                    case 'Contact':
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyContactScreen()));
+                    case 'Message':
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MessegeScreen()));
+                  }
+
+                  ///if-else
+                  // if (appName[index] == 'Contact') {
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => MyContactScreen()));
+                  // }
+                  // else if (appName[index] == 'Message') {
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => MessegeScreen()));
+                  // } else {}
                 },
                 // backgroundImage: HomeIcon.homeBackground,
               );
