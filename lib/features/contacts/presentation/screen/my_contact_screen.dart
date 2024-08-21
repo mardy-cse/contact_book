@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../constant/app_space.dart';
 import '../../../../constant/text_constant.dart';
 import '../../../../constant/widget/custom_appbar_widget.dart';
 import '../controller/contact_controller.dart';
@@ -11,7 +12,7 @@ import '../widget/contact_list_view_widget.dart';
 import '../widget/create_contact_bottom_sheet_widget.dart';
 
 class MyContactScreen extends StatefulWidget {
-  const MyContactScreen({super.key});
+  MyContactScreen({super.key});
 
   @override
   State<MyContactScreen> createState() => _MyContactScreenState();
@@ -75,21 +76,115 @@ class _MyContactScreenState extends State<MyContactScreen> {
                               contactName: data?['name'],
                               number: data?['number'],
                               address: data?['address'],
-                              callIcon: ContactIcon.callIcon,
+                              elevetedButon: ContactText.callEleveted,
                               onCallIconTapped: () async {
                                 final Uri phoneUri = Uri(
                                   scheme: 'tel',
-                                  // path: '01798638702',
                                   path: data?['number'],
-                                  // Dynamic number
                                 );
                                 print('Phone URI: $phoneUri');
-                                if (await canLaunchUrl(phoneUri)) {
-                                  await launchUrl(phoneUri);
-                                } else {
-                                  throw 'Could not launch $phoneUri';
+
+                                try {
+                                  if (await canLaunchUrl(phoneUri)) {
+                                    await launchUrl(phoneUri);
+                                  }
+                                } catch (e, s) {
+                                  print('Error: $e');
+                                  print('Strec: $s');
                                 }
                               },
+                              onLongPress: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    actions: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              showModalBottomSheet(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                builder: (context) {
+                                                  return CreateContactBottomSheetWidget(
+                                                    fromWhere: 'Update',
+                                                    title:
+                                                        ContactText.editContact,
+                                                    buttonName:
+                                                        ContactText.update,
+                                                    name: data?['name'],
+                                                    number: data?['number'],
+                                                    email: data?['email'],
+                                                    address: data?['address'],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: const Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.edit,
+                                                    color: Colors.black,
+                                                  ),
+                                                  AppSpace.width5,
+                                                  Text(
+                                                    ContactText.edit,
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          AppSpace.height10,
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.delete,
+                                                    color: Colors.black,
+                                                  ),
+                                                  AppSpace.width5,
+                                                  Text(
+                                                    ContactText.delete,
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              // onCallIconTapped: () async {
+                              //   final Uri phoneUri = Uri(
+                              //     scheme: 'tel',
+                              //     // path: '01798638702',
+                              //     path: data?['number'],
+                              //     // Dynamic number
+                              //   );
+                              //   print('Phone URI: $phoneUri');
+                              //   if (await canLaunchUrl(phoneUri)) {
+                              //     await launchUrl(phoneUri);
+                              //   } else {
+                              //     throw 'Could not launch $phoneUri';
+                              //   }
+                              // },
                             );
                           },
                         )
@@ -121,6 +216,89 @@ class _MyContactScreenState extends State<MyContactScreen> {
                                       print('Strec: $s');
                                     }
                                   },
+                                  onLongPress: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        actions: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  showModalBottomSheet(
+                                                    context: context,
+                                                    isScrollControlled: true,
+                                                    builder: (context) {
+                                                      return CreateContactBottomSheetWidget(
+                                                        fromWhere: 'Update',
+                                                        title: ContactText
+                                                            .editContact,
+                                                        buttonName:
+                                                            ContactText.update,
+                                                        name: data?['name'],
+                                                        number: data?['number'],
+                                                        email: data?['email'],
+                                                        address:
+                                                            data?['address'],
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: const Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.edit,
+                                                        color: Colors.black,
+                                                      ),
+                                                      AppSpace.width5,
+                                                      Text(
+                                                        ContactText.edit,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              AppSpace.height10,
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.delete,
+                                                        color: Colors.black,
+                                                      ),
+                                                      AppSpace.width5,
+                                                      Text(
+                                                        ContactText.delete,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
                                 ),
                                 index == snapshot.data!.docs.length - 1
                                     ? const SizedBox(
@@ -150,7 +328,11 @@ class _MyContactScreenState extends State<MyContactScreen> {
         backgroundColor: Colors.indigo,
         onPressed: () {
           Get.bottomSheet(
-            CreateContactBottomSheetWidget(),
+            CreateContactBottomSheetWidget(
+              fromWhere: 'newContact',
+              title: ContactText.newContact,
+              buttonName: ContactText.save,
+            ),
             backgroundColor: Colors.white,
             isScrollControlled: true,
           );

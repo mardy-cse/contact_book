@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../constant/text_constant.dart';
 import '../../../../constant/widget/custom_appbar_widget.dart';
 import '../../../contacts/presentation/screen/my_contact_screen.dart';
+import '../../../messege/presentation/screen/messege_screen.dart';
 import '../widget/drawer_listview_widget.dart';
 import '../widget/home_screen_widget.dart';
 
@@ -128,6 +129,12 @@ class HomeScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => MyContactScreen()));
+                  } else {}
+                  if (appName[index] == 'Message') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MessegeScreen()));
                   } else {}
                 },
                 // backgroundImage: HomeIcon.homeBackground,

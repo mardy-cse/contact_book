@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:contact_book/constant/app_space.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,10 +7,52 @@ import 'package:get/get.dart';
 import '../../../../constant/text_constant.dart';
 import '../controller/contact_controller.dart';
 
-class CreateContactBottomSheetWidget extends StatelessWidget {
+class CreateContactBottomSheetWidget extends StatefulWidget {
+  String title;
+  String buttonName;
+  String? name;
+  String? number;
+  String? email;
+  String? address;
+  String? fromWhere;
+
+  CreateContactBottomSheetWidget({
+    super.key,
+    required this.title,
+    required this.buttonName,
+    this.name,
+    this.number,
+    this.email,
+    this.address,
+    this.fromWhere,
+  });
+
   @override
+  State<CreateContactBottomSheetWidget> createState() =>
+      _CreateContactBottomSheetWidgetState();
+}
+
+class _CreateContactBottomSheetWidgetState
+    extends State<CreateContactBottomSheetWidget> {
   ContactController contactController = Get.find<ContactController>();
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.fromWhere == 'Update') {
+      contactController.nameController.text = widget.name ?? '';
+      contactController.numberController.text = widget.number ?? '';
+      contactController.emailController.text = widget.email ?? '';
+      contactController.addressController.text = widget.address ?? '';
+    } else {
+      contactController.nameController.clear();
+      contactController.numberController.clear();
+      contactController.emailController.clear();
+      contactController.addressController.clear();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -22,12 +66,13 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: Column(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(15.0),
               child: Column(
                 children: [
                   Text(
-                    ContactText.newContact,
+                    // ContactText.edit,
+                    widget.title,
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -111,17 +156,15 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                           AppSpace.width50,
                           Container(
                             height: 40,
-                            width: 90,
+                            width: 100,
                             child: ElevatedButton(
                                 style: ButtonStyle(
                                     backgroundColor: WidgetStatePropertyAll(
                                         Colors.indigoAccent)),
                                 onPressed: () async {
-                                  if (contactController.nameController.text !=
-                                          '' &&
-                                      contactController.numberController.text !=
-                                          '') {
-                                    await contactController.saveContact(
+                                  if (widget.fromWhere == 'Update') {
+                                    await contactController
+                                        .updateContact(
                                       name:
                                           contactController.nameController.text,
                                       number: contactController
@@ -130,12 +173,58 @@ class CreateContactBottomSheetWidget extends StatelessWidget {
                                           .emailController.text,
                                       address: contactController
                                           .addressController.text,
-                                    );
-                                    Navigator.pop(context);
+                                    )
+                                        .then((value) {
+                                      Navigator.pop(context);
+                                      log('Update Contact');
+                                    });
+                                  } else {
+                                    print('SaveTapped');
+                                    print(
+                                        'Name: ${contactController.nameController.text}');
+                                    if (contactController.nameController.text !=
+                                            '' &&
+                                        contactController
+                                                .numberController.text !=
+                                            '') {
+                                      await contactController
+                                          .saveContact(
+                                        name: contactController
+                                            .nameController.text,
+                                        number: contactController
+                                            .numberController.text,
+                                        email: contactController
+                                            .emailController.text,
+                                        address: contactController
+                                            .addressController.text,
+                                      )
+                                          .then((value) {
+                                        log('Contact Saved');
+                                        Navigator.pop(context);
+                                      });
+                                    }
                                   }
                                 },
+                                // async {
+                                //   if (contactController.nameController.text !=
+                                //           '' &&
+                                //       contactController.numberController.text !=
+                                //           '') {
+                                //     await contactController.saveContact(
+                                //       name:
+                                //           contactController.nameController.text,
+                                //       number: contactController
+                                //           .numberController.text,
+                                //       email: contactController
+                                //           .emailController.text,
+                                //       address: contactController
+                                //           .addressController.text,
+                                //     );
+                                //     Navigator.pop(context);
+                                //   }
+                                // },
                                 child: Text(
-                                  ContactText.save,
+                                  widget.buttonName,
                                   style: TextStyle(color: Colors.white),
                                 )),
                           ),

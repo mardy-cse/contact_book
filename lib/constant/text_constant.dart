@@ -7,8 +7,11 @@ mixin ContactText {
   static const enterYourAddress = 'Address';
   static const cancel = 'cancel';
   static const save = 'save';
+  static const editContact = 'Edit Contact';
   static const edit = 'Edit';
+  static const update = 'Update';
   static const delete = 'Delete';
+  static const callEleveted = 'call';
 }
 mixin ContactIcon {
   static const personIcon = 'assets/icon/contacts/person.png';
@@ -33,6 +36,14 @@ mixin HomeIcon {
   static const images9Icon = 'assets/icon/home/images9.png';
   static const images10Icon = 'assets/icon/home/images10.png';
   static const homeBackground = 'assets/icon/home/home_background.png';
+}
+mixin MessegeText {
+  static const title = 'Inbox';
+  static const prefixTo = 'To';
+  static const labelText = 'Name or Phone Number';
+}
+mixin MessegeIcon {
+  static const messegeicon = 'assets/icon/contacts/images.jpeg';
 }
 
 mixin AuthText {
