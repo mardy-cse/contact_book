@@ -53,3 +53,9 @@ mixin AuthText {
 mixin AuthIcon {
   static const loginIcon = 'assets/icon/auth/login.svg';
 }
+mixin TodoIcons {
+  static const todoIcon = 'assets/icon/todo/todo_icon.png';
+}
+mixin TodoText {
+  static const todoTitle = 'Todo';
+}

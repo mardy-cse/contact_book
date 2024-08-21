@@ -1,5 +1,7 @@
+import 'package:contact_book/features/todo/presentation/screen/todo_screen.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../constant/text_constant.dart';
 import '../../../../constant/widget/custom_appbar_widget.dart';
@@ -10,6 +12,7 @@ import '../widget/home_screen_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<String> images = [
+    TodoIcons.todoIcon,
     'assets/icon/home/images1.png',
     'assets/icon/home/images2.png',
     'assets/icon/home/images3.png',
@@ -22,6 +25,7 @@ class HomeScreen extends StatelessWidget {
     'assets/icon/home/images10.png',
   ];
   final List<String> appName = [
+    TodoText.todoTitle,
     'Settings',
     'Contact',
     'Message',
@@ -129,12 +133,13 @@ class HomeScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => MyContactScreen()));
-                  } else {}
-                  if (appName[index] == 'Message') {
+                  } else if (appName[index] == 'Message') {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => MessegeScreen()));
+                  } else if (appName[index] == 'Todo') {
+                    Get.to(const TodoScreen());
                   } else {}
                 },
                 // backgroundImage: HomeIcon.homeBackground,
