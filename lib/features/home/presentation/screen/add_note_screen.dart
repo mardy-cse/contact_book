@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddNoteScreen extends StatefulWidget {
-  AddNoteScreen({super.key});
+  final String? title;
+  final String? description;
+  final String? fromWhere;
+
+  AddNoteScreen({this.title, this.description, this.fromWhere});
 
   @override
   State<AddNoteScreen> createState() => _AddNoteScreenState();
@@ -12,6 +16,20 @@ class AddNoteScreen extends StatefulWidget {
 
 class _AddNoteScreenState extends State<AddNoteScreen> {
   final TodoController controller = Get.put(TodoController());
+
+  loadData() {
+    controller.titleController.text = widget.title!;
+    controller.descriptionController.text = widget.description!;
+  }
+
+  @override
+  void initState() {
+    if (widget.fromWhere == 'viewNote') {
+      loadData();
+      print('NoteView');
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +63,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                   ),
                   Expanded(
                       child: TextField(
+                    readOnly: widget.fromWhere == 'viewNote' ? true : false,
                     controller: controller.titleController,
                     onChanged: (value) => controller.canSave(),
                     cursorColor: Colors.white,
@@ -93,6 +112,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                 right: 15),
             child: SingleChildScrollView(
                 child: TextField(
+              readOnly: widget.fromWhere == 'viewNote' ? true : false,
               controller: controller.descriptionController,
               autofocus: true,
               maxLines: null,
