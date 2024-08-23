@@ -58,4 +58,9 @@ mixin TodoIcons {
 }
 mixin TodoText {
   static const todoTitle = 'Todo';
+  static const viewNote = 'viewNote';
+  static const editNote = 'editNote';
+  static const title = 'Title...';
+  static const writeYourNote = 'Write your note...';
+  static const noDataFound = 'No Data Found';
 }

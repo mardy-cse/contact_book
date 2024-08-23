@@ -5,10 +5,14 @@ import 'package:get/get.dart';
 
 import '../../../../constant/text_constant.dart';
 import '../../../home/presentation/screen/add_note_screen.dart';
+import '../controller/todo_controller.dart';
+import '../widget/todo_bottom_sheet_widget.dart';
 import '../widget/todo_view_widget.dart';
 
 class TodoScreen extends StatelessWidget {
-  const TodoScreen({super.key});
+  TodoScreen({super.key});
+
+  final TodoController controller = Get.put(TodoController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +27,49 @@ class TodoScreen extends StatelessWidget {
                 return ListView.builder(
                     itemCount: data?.length,
                     itemBuilder: (context, index) {
-                      return TodoViewWidget(
-                        onTap: () {
-                          Get.to(AddNoteScreen(
-                            fromWhere: 'viewNote',
+                      var docId = data?[index].id;
+                      return Column(
+                        children: [
+                          TodoViewWidget(
+                            onTap: () {
+                              Get.to(AddNoteScreen(
+                                fromWhere: TodoText.viewNote,
+                                title: data?[index]['title'],
+                                description: data?[index]['description'],
+                              ));
+                            },
+                            option: () {
+                              Get.bottomSheet(TodoBottomSheetWidget(
+                                editFunction: () {
+                                  Get.back();
+                                  controller.isSaveIconShow.value = true;
+                                  Get.to(AddNoteScreen(
+                                    docId: docId,
+                                    isEdit: true,
+                                    fromWhere: TodoText.viewNote,
+                                    title: data?[index]['title'],
+                                    description: data?[index]['description'],
+                                  ));
+                                },
+                                deleteFunction: () async {
+                                  Get.back();
+                                  await FirebaseFirestore.instance
+                                      .collection('Todos')
+                                      .doc(docId)
+                                      .delete();
+                                },
+                              ));
+                            },
                             title: data?[index]['title'],
                             description: data?[index]['description'],
-                          ));
-                        },
-                        title: data?[index]['title'],
-                        description: data?[index]['description'],
+                          ),
+                          index == data!.length - 1
+                              ? SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.08,
+                                )
+                              : SizedBox.shrink()
+                        ],
                       );
                     });
               } else if (snapshot.hasError) {
@@ -41,7 +78,7 @@ class TodoScreen extends StatelessWidget {
                 );
               } else {
                 return Center(
-                  child: Text('No Data Found'),
+                  child: Text(TodoText.noDataFound),
                 );
               }
             } else {

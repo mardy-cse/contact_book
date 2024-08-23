@@ -139,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => MessegeScreen()));
                   } else if (appName[index] == 'Todo') {
-                    Get.to(const TodoScreen());
+                    Get.to(TodoScreen());
                   } else {}
                 },
                 // backgroundImage: HomeIcon.homeBackground,
