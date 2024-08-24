@@ -1,9 +1,12 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../constant/text_constant.dart';
 import '../../../../constant/widget/custom_appbar_widget.dart';
+import '../../../calculator/presentation/screen/calculator_screen.dart';
 import '../../../contacts/presentation/screen/my_contact_screen.dart';
+import '../../../counter/presentation/screen/counter_app.dart';
 import '../../../messege/presentation/screen/messege_screen.dart';
 import '../widget/drawer_listview_widget.dart';
 import '../widget/home_screen_widget.dart';
@@ -20,6 +23,8 @@ class HomeScreen extends StatelessWidget {
     'assets/icon/home/images8.png',
     'assets/icon/home/images9.png',
     'assets/icon/home/images10.png',
+    'assets/icon/home/counter.png',
+    'assets/icon/home/Calculator.png',
   ];
   final List<String> appName = [
     'Settings',
@@ -32,6 +37,8 @@ class HomeScreen extends StatelessWidget {
     'WhatsApp',
     'skype',
     'gallery',
+    'counter',
+    'calculator',
   ];
   final List<String> tittle = [
     'My Files',
@@ -57,54 +64,54 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbarWidget(
-        appBarTitle: 'Home',
-      ),
-      drawer: Drawer(
-        backgroundColor: Colors.cyan,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const DrawerHeader(
-              child: CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage(ContactIcon.person3Icon),
-              ),
-            ),
-            DropdownSearch(
-              dropdownDecoratorProps: const DropDownDecoratorProps(
-                  dropdownSearchDecoration: InputDecoration(
-                enabled: true,
-                // hintText: 'select',
-                label: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(HomeText.drawerPic),
-                    Text(
-                      HomeText.subTitlename,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ],
-                ),
-                filled: true,
-                fillColor: Colors.teal,
-
-                labelStyle: TextStyle(color: Colors.black, fontSize: 20),
-              )),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: tittle.length,
-              itemBuilder: (context, index) {
-                return DrawerListviewWidget(
-                  icon: icon[index],
-                  tittle: tittle[index],
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      // appBar: CustomAppbarWidget(
+      //   appBarTitle: 'Home',
+      // ),
+      // drawer: Drawer(
+      //   backgroundColor: Colors.cyan,
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+      //       const DrawerHeader(
+      //         child: CircleAvatar(
+      //           radius: 30,
+      //           backgroundImage: AssetImage(ContactIcon.person3Icon),
+      //         ),
+      //       ),
+      //       DropdownSearch(
+      //         dropdownDecoratorProps: const DropDownDecoratorProps(
+      //             dropdownSearchDecoration: InputDecoration(
+      //           enabled: true,
+      //           // hintText: 'select',
+      //           label: Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: [
+      //               Text(HomeText.drawerPic),
+      //               Text(
+      //                 HomeText.subTitlename,
+      //                 style: TextStyle(fontSize: 15),
+      //               ),
+      //             ],
+      //           ),
+      //           filled: true,
+      //           fillColor: Colors.teal,
+      //
+      //           labelStyle: TextStyle(color: Colors.black, fontSize: 20),
+      //         )),
+      //       ),
+      //       ListView.builder(
+      //         shrinkWrap: true,
+      //         itemCount: tittle.length,
+      //         itemBuilder: (context, index) {
+      //           return DrawerListviewWidget(
+      //             icon: icon[index],
+      //             tittle: tittle[index],
+      //           );
+      //         },
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -130,11 +137,23 @@ class HomeScreen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MyContactScreen()));
+                      break;
                     case 'Message':
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => MessegeScreen()));
+                      break;
+                    case 'counter':
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CounterApp()));
+                      break;
+                    case 'calculator':
+                      Get.to(CalculatorScreen());
+                      break;
+                    default:
                   }
 
                   ///if-else

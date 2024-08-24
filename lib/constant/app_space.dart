@@ -28,4 +28,7 @@ class AppSpace {
   static const width5 = SizedBox(
     width: 5,
   );
+  static const width10 = SizedBox(
+    width: 10,
+  );
 }

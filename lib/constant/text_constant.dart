@@ -46,3 +46,13 @@ mixin MessegeText {
 mixin MessegeIcon {
   static const suffixIcon = 'To';
 }
+mixin CalculatorText {
+  static const num1 = 'Enter the first number';
+  static const num2 = 'Enter the second number';
+  static const result = 'Result:';
+  static const add = 'add';
+  static const sub = 'sub';
+  static const mul = 'mul';
+  static const div = 'div';
+  static const reset = 'reset';
+}

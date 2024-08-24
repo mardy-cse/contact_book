@@ -12,8 +12,7 @@ class NewConversationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController msgcontroler = TextEditingController(text: name);
-    // double height = MediaQuery.of(context).size.height;
-    // double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: CustomAppbarWidget(
         appBarTitle: MessegeText.newConversation,
@@ -59,13 +58,6 @@ class NewConversationWidget extends StatelessWidget {
                         fixedSize: const Size(25, 50),
                         // fixedSize: const Size(35, 55), // Updated button size
                       ),
-                      // style: ButtonStyle(
-                      //
-                      //     shape: WidgetStatePropertyAll(CircleBorder(
-                      //         side: BorderSide(
-                      //   width: 2,
-                      //   color: Colors.white54,
-                      // )))),
                       onPressed: () {},
                       child: Icon(
                         Icons.send,
