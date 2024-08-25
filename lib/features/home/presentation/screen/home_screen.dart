@@ -1,14 +1,11 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../constant/text_constant.dart';
-import '../../../../constant/widget/custom_appbar_widget.dart';
 import '../../../calculator/presentation/screen/calculator_screen.dart';
+import '../../../clock/presentation/screen/clock_screen.dart';
 import '../../../contacts/presentation/screen/my_contact_screen.dart';
 import '../../../counter/presentation/screen/counter_app.dart';
 import '../../../messege/presentation/screen/messege_screen.dart';
-import '../widget/drawer_listview_widget.dart';
 import '../widget/home_screen_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -153,6 +150,9 @@ class HomeScreen extends StatelessWidget {
                     case 'calculator':
                       Get.to(CalculatorScreen());
                       break;
+                    case 'clock':
+                      Get.to(ClockScreen());
+
                     default:
                   }
 

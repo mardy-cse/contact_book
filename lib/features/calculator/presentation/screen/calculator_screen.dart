@@ -26,17 +26,17 @@ class CalculatorScreen extends StatelessWidget {
             children: [
               CalculatorTextfieldWidget(
                 num: CalculatorText.num1,
-                controller: controller.num1,
+                controller: controller.num1Controller,
               ),
               AppSpace.height20,
               CalculatorTextfieldWidget(
                 num: CalculatorText.num2,
-                controller: controller.num2,
+                controller: controller.num2Controller,
               ),
               AppSpace.height20,
               CalculatorTextfieldWidget(
                 num: CalculatorText.result,
-                controller: controller.result,
+                controller: controller.resultController,
                 readOnly: true,
               ),
               AppSpace.height30,

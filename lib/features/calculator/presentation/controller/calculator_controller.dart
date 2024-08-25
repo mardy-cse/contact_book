@@ -2,45 +2,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class CalculatorController extends GetxController {
-  TextEditingController num1 = TextEditingController();
-  TextEditingController num2 = TextEditingController();
-  TextEditingController result = TextEditingController();
+  TextEditingController num1Controller = TextEditingController();
+  TextEditingController num2Controller = TextEditingController();
+  TextEditingController resultController = TextEditingController();
 
   void add() {
-    //double number1,number2,sum,mul,div,reset;
-    double number1 = double.tryParse(num1.text) ?? 9.0;
-
-    double number2 = double.tryParse(num2.text) ?? 0.0;
+    double number1 = double.parse(num1Controller.text);
+    double number2 = double.parse(num2Controller.text);
     double sum = (number1 + number2);
-    result.text = 'Addition is: $sum';
+    resultController.text = 'Addition is: $sum';
 
-    String result1 = 'Addition is: ${result.text}';
+    String result1 = 'Addition is: ${resultController.text}';
   }
 
   void sub() {
-    double number1 = double.tryParse(num1.text) ?? 0.0;
-    double number2 = double.tryParse(num2.text) ?? 0.0;
+    double number1 = double.parse(num1Controller.text);
+    double number2 = double.parse(num2Controller.text);
     double sub = (number1 - number2);
-    result.text = 'Subtraction is: $sub';
+    resultController.text = 'Subtraction is: $sub';
   }
 
   void mul() {
-    double number1 = double.tryParse(num1.text) ?? 0.0;
-    double number2 = double.tryParse(num2.text) ?? 0.0;
+    double number1 = double.parse(num1Controller.text);
+    double number2 = double.parse(num2Controller.text);
     double mul = (number1 * number2);
-    result.text = 'Multiplication is: $mul';
+    resultController.text = 'Multiplication is: $mul';
   }
 
   void div() {
-    double number1 = double.tryParse(num1.text) ?? 0.0;
-    double number2 = double.tryParse(num2.text) ?? 0.0;
+    double number1 = double.parse(num1Controller.text);
+    double number2 = double.parse(num2Controller.text);
     double div = (number1 / number2);
-    result.text = 'Division is: $div';
+    resultController.text = 'Division is: $div';
   }
 
   void reset() {
-    num1.clear();
-    num2.clear();
-    result.clear();
+    num1Controller.clear();
+    num2Controller.clear();
+    resultController.clear();
   }
 }
