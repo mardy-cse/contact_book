@@ -30,15 +30,33 @@ class AlarmScreen extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: time.length,
-                itemBuilder: (context, index) {
-                  return AlarmListviewWidget(
-                    leading: time[index],
-                    alarmController: alarmcontroller,
-                    index: index,
-                  );
-                },
+              child: Obx(
+                // () {
+                //   if (alarmcontroller.alarmTimes.isEmpty) {
+                //     return Center(child: Text('No alarms set.'));
+                //   } else {
+                //     ListView.builder(
+                //       itemCount: alarmcontroller.alarmTimes.length,
+                //       itemBuilder: (context, index) {
+                //         return AlarmListviewWidget(
+                //           leading: alarmcontroller.alarmTimes[index],
+                //           alarmController: alarmcontroller,
+                //           index: index,
+                //         );
+                //       },
+                //     );
+                //   }
+                // },
+                () => ListView.builder(
+                  itemCount: alarmcontroller.alarmTimes.length,
+                  itemBuilder: (context, index) {
+                    return AlarmListviewWidget(
+                      leading: alarmcontroller.alarmTimes[index],
+                      alarmController: alarmcontroller,
+                      index: index,
+                    );
+                  },
+                ),
               ),
             ),
           ),

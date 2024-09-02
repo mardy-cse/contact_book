@@ -1,17 +1,18 @@
-import 'package:contact_book/features/clock/presentation/controller/alarm_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../controller/alarm_controller.dart';
 
 class AlarmListviewWidget extends StatelessWidget {
   final AlarmController alarmController;
   final String leading;
   final int index;
 
-  AlarmListviewWidget({
+  const AlarmListviewWidget({
     super.key,
     required this.leading,
-    required this.alarmController,
     required this.index,
+    required this.alarmController,
   });
 
   @override
@@ -33,7 +34,7 @@ class AlarmListviewWidget extends StatelessWidget {
               child: Obx(
                 () => Transform.translate(
                   offset: alarmController.iconOffsets[index].value,
-                  child: Icon(
+                  child: const Icon(
                     Icons.circle_outlined,
                     color: Colors.white,
                   ),

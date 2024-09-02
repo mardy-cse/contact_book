@@ -2,6 +2,7 @@ import 'package:contact_book/features/home/presentation/screen/home_screen.dart'
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +13,7 @@ void main() async {
     messagingSenderId: "1068678599568",
     projectId: "compact-app-6cc6a",
   ));
+  await GetStorage.init();
   runApp(const MyApp());
 }
 

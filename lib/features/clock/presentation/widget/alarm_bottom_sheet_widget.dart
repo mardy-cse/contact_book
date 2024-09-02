@@ -2,6 +2,9 @@ import 'package:contact_book/constant/app_space.dart';
 import 'package:contact_book/constant/text_constant.dart';
 import 'package:contact_book/constant/widget/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../controller/alarm_controller.dart';
 
 class AlarmBottomSheetWidget extends StatefulWidget {
   AlarmBottomSheetWidget({super.key});
@@ -11,11 +14,12 @@ class AlarmBottomSheetWidget extends StatefulWidget {
 }
 
 class _AlarmBottomSheetWidgetState extends State<AlarmBottomSheetWidget> {
-  TextEditingController alarmController = TextEditingController(text: '');
+  TextEditingController timeController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
-    // final AlarmController alarmController = Get.put(AlarmController());
+    final AlarmController alarmController = Get.find<AlarmController>();
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
@@ -51,12 +55,9 @@ class _AlarmBottomSheetWidgetState extends State<AlarmBottomSheetWidget> {
                     );
                     if (pickedTime != null) {
                       setState(() {
-                        alarmController.text =
+                        timeController.text =
                             '${pickedTime.hour}:${pickedTime.minute}';
                       });
-                      // String formattedTime =
-                      //     '${pickedTime.hour}:${pickedTime.minute}';
-                      // alarmController.setTime(formattedTime);
 
                       print('${pickedTime.hour}:${pickedTime.minute}');
                     }
@@ -70,8 +71,7 @@ class _AlarmBottomSheetWidgetState extends State<AlarmBottomSheetWidget> {
                 height: 50,
                 width: 80,
                 child: TextField(
-                  controller: alarmController,
-                  // controller: alarmController.alarmController,
+                  controller: timeController,
                   readOnly: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -86,7 +86,14 @@ class _AlarmBottomSheetWidgetState extends State<AlarmBottomSheetWidget> {
                       style: ButtonStyle(
                           backgroundColor:
                               WidgetStatePropertyAll(Colors.indigoAccent)),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (timeController.text.isNotEmpty) {
+                          alarmController.addTime(timeController.text);
+                        } else {
+                          print('no time selected');
+                        }
+                        Navigator.pop(context);
+                      },
                       child: Icon(
                         Icons.check,
                         color: Colors.white,
