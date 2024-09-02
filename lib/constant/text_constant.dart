@@ -56,3 +56,7 @@ mixin CalculatorText {
   static const div = 'div';
   static const reset = 'reset';
 }
+mixin ClockText {
+  static const alarm = 'Alarm';
+  static const select = 'Selected Time';
+}
