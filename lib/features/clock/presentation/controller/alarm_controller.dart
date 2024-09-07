@@ -4,18 +4,22 @@ import 'package:get_storage/get_storage.dart';
 
 class AlarmController extends GetxController {
   final box = GetStorage();
+  var light = false.obs;
 
-  List<Rx<Offset>> iconOffsets = <Rx<Offset>>[];
-  List<Rx<Color>> buttonColor = <Rx<Color>>[];
+  void toggleSwitch(int index) {
+    switchStates[index].value = !switchStates[index].value;
+  }
 
-  // List<Rx<Offset>> iconOffsets =
-  //     List.generate(5, (index) => const Offset(0, 0).obs);
-  // List<Rx<Color>> buttonColor = List.generate(5, (index) => Colors.grey.obs);
+  List<Rx<Offset>> iconOffsets =
+      List.generate(15, (index) => const Offset(0, 0).obs);
+  List<Rx<Color>> buttonColor = List.generate(15, (index) => Colors.grey.obs);
+  List<RxBool> switchStates = <RxBool>[];
 
   @override
   void onInit() {
     super.onInit();
     loadAlarms();
+    switchStates = List.generate(alarmTimes.length, (index) => false.obs);
   }
 
   ///For adding new time.
@@ -40,19 +44,6 @@ class AlarmController extends GetxController {
     var storedAlarms = box.read<List>('alarms');
     if (storedAlarms != null) {
       alarmTimes.assignAll(storedAlarms.map((e) => e.toString()));
-    }
-  }
-
-  ///For changing color and shifting the icon.
-
-  void changeColor(int index) {
-    if (iconOffsets[index].value == const Offset(0, 0)) {
-      iconOffsets[index].value = const Offset(20, 0); // Move right
-      buttonColor[index].value = Colors.indigo; // Change button color
-    } else {
-      iconOffsets[index].value =
-          const Offset(0, 0); // Reset to original position
-      buttonColor[index].value = Colors.grey; // Reset button color
     }
   }
 }

@@ -1,22 +1,25 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/alarm_controller.dart';
 
 class AlarmListviewWidget extends StatelessWidget {
-  final AlarmController alarmController;
   final String leading;
   final int index;
 
-  const AlarmListviewWidget({
+  AlarmListviewWidget({
     super.key,
     required this.leading,
     required this.index,
-    required this.alarmController,
   });
+
+  final AlarmController alarmController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    log('Index: $index');
     return Card(
         elevation: 5,
         child: ListTile(
@@ -24,22 +27,15 @@ class AlarmListviewWidget extends StatelessWidget {
             leading,
             style: TextStyle(fontSize: 18),
           ),
-          trailing: Obx(() => ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(
-                  alarmController.buttonColor[index].value,
-                ),
-              ),
-              onPressed: () => alarmController.changeColor(index),
-              child: Obx(
-                () => Transform.translate(
-                  offset: alarmController.iconOffsets[index].value,
-                  child: const Icon(
-                    Icons.circle_outlined,
-                    color: Colors.white,
-                  ),
-                ),
-              ))),
+          trailing: Obx(() {
+            return Switch(
+              activeColor: Colors.indigoAccent,
+              value: alarmController.switchStates[index].value,
+              onChanged: (_) {
+                alarmController.toggleSwitch(index);
+              },
+            );
+          }),
         ));
   }
 }

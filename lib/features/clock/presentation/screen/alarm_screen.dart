@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:contact_book/constant/text_constant.dart';
 import 'package:contact_book/constant/widget/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../controller/alarm_controller.dart';
 import '../widget/alarm_bottom_sheet_widget.dart';
@@ -10,14 +11,6 @@ import '../widget/alarm_listview_widget.dart';
 
 class AlarmScreen extends StatelessWidget {
   final AlarmController alarmcontroller = Get.put(AlarmController());
-
-  List<String> time = [
-    DateFormat('Hm').format(DateTime.now()),
-    DateFormat('Hm').format(DateTime.now()),
-    DateFormat('Hm').format(DateTime.now()),
-    DateFormat('Hm').format(DateTime.now()),
-    DateFormat('Hm').format(DateTime.now()),
-  ] as List<String>;
 
   AlarmScreen({super.key});
 
@@ -27,32 +20,16 @@ class AlarmScreen extends StatelessWidget {
       appBar: CustomAppbarWidget(appBarTitle: ClockText.alarm),
       body: Column(
         children: [
-          Expanded(
+          Flexible(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Obx(
-                // () {
-                //   if (alarmcontroller.alarmTimes.isEmpty) {
-                //     return Center(child: Text('No alarms set.'));
-                //   } else {
-                //     ListView.builder(
-                //       itemCount: alarmcontroller.alarmTimes.length,
-                //       itemBuilder: (context, index) {
-                //         return AlarmListviewWidget(
-                //           leading: alarmcontroller.alarmTimes[index],
-                //           alarmController: alarmcontroller,
-                //           index: index,
-                //         );
-                //       },
-                //     );
-                //   }
-                // },
                 () => ListView.builder(
                   itemCount: alarmcontroller.alarmTimes.length,
                   itemBuilder: (context, index) {
+                    log('alarmcontroller.alarmTimes.length:${alarmcontroller.alarmTimes.length}');
                     return AlarmListviewWidget(
                       leading: alarmcontroller.alarmTimes[index],
-                      alarmController: alarmcontroller,
                       index: index,
                     );
                   },

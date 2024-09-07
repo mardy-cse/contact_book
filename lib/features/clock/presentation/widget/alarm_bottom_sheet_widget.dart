@@ -29,7 +29,7 @@ class _AlarmBottomSheetWidgetState extends State<AlarmBottomSheetWidget> {
           topRight: Radius.circular(20),
         ),
         child: Container(
-          height: height * 1,
+          height: height * 0.5,
           width: double.infinity,
           color: Colors.white,
           child: Column(
@@ -44,7 +44,7 @@ class _AlarmBottomSheetWidgetState extends State<AlarmBottomSheetWidget> {
               ),
               AppSpace.height20,
               ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       backgroundColor:
                           WidgetStatePropertyAll(Colors.indigoAccent)),
                   onPressed: () async {
