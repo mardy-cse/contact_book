@@ -46,4 +46,11 @@ class AlarmController extends GetxController {
       alarmTimes.assignAll(storedAlarms.map((e) => e.toString()));
     }
   }
+
+  ///For delete item
+  void deleteAlarm(int index) {
+    if (index >= 0 && index < alarmTimes.length) {
+      alarmTimes.removeAt(index);
+    }
+  }
 }

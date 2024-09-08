@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 import '../controller/alarm_controller.dart';
 
 class AlarmBottomSheetWidget extends StatefulWidget {
-  AlarmBottomSheetWidget({super.key});
+  String tittle;
+
+  AlarmBottomSheetWidget({super.key, required this.tittle});
 
   @override
   State<AlarmBottomSheetWidget> createState() => _AlarmBottomSheetWidgetState();
@@ -22,7 +24,95 @@ class _AlarmBottomSheetWidgetState extends State<AlarmBottomSheetWidget> {
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
+    return Scaffold(
+      appBar: CustomAppbarWidget(appBarTitle: widget.tittle),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // CustomAppbarWidget(appBarTitle: widget.tittle),
+            AppSpace.height30,
+            Text(
+              ClockText.select,
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            AppSpace.height20,
+            ElevatedButton(
+                style: const ButtonStyle(
+                    backgroundColor:
+                        WidgetStatePropertyAll(Colors.indigoAccent)),
+                onPressed: () async {
+                  TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                    initialEntryMode: TimePickerEntryMode.input,
+                  );
+                  if (pickedTime != null) {
+                    setState(() {
+                      timeController.text =
+                          '${pickedTime.hour}:${pickedTime.minute}';
+                    });
+
+                    print('${pickedTime.hour}:${pickedTime.minute}');
+                  }
+                },
+                child: Icon(
+                  Icons.access_time_sharp,
+                  color: Colors.white,
+                )),
+            AppSpace.height20,
+            SizedBox(
+              height: 50,
+              width: 80,
+              child: TextField(
+                controller: timeController,
+                readOnly: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30))),
+              ),
+            ),
+            AppSpace.height20,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStatePropertyAll(Colors.indigoAccent)),
+                    onPressed: () {
+                      if (timeController.text.isNotEmpty) {
+                        alarmController.addTime(timeController.text);
+                      } else {
+                        print('no time selected');
+                      }
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    )),
+                AppSpace.width20,
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStatePropertyAll(Colors.indigoAccent)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+    SingleChildScrollView(
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -34,7 +124,7 @@ class _AlarmBottomSheetWidgetState extends State<AlarmBottomSheetWidget> {
           color: Colors.white,
           child: Column(
             children: [
-              CustomAppbarWidget(appBarTitle: 'new alarm'),
+              CustomAppbarWidget(appBarTitle: widget.tittle),
               AppSpace.height30,
               Text(
                 ClockText.select,

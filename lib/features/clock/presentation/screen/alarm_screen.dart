@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:contact_book/constant/app_space.dart';
 import 'package:contact_book/constant/text_constant.dart';
 import 'package:contact_book/constant/widget/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class AlarmScreen extends StatelessWidget {
       appBar: CustomAppbarWidget(appBarTitle: ClockText.alarm),
       body: Column(
         children: [
-          Flexible(
+          Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Obx(
@@ -28,9 +29,59 @@ class AlarmScreen extends StatelessWidget {
                   itemCount: alarmcontroller.alarmTimes.length,
                   itemBuilder: (context, index) {
                     log('alarmcontroller.alarmTimes.length:${alarmcontroller.alarmTimes.length}');
-                    return AlarmListviewWidget(
-                      leading: alarmcontroller.alarmTimes[index],
-                      index: index,
+                    String? alarmTime = alarmcontroller.alarmTimes[index];
+                    alarmTime ??= 'No Time Set';
+
+                    return GestureDetector(
+                      onLongPress: () {
+                        Get.defaultDialog(
+                            title: '',
+                            content: Column(
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(AlarmBottomSheetWidget(
+                                      tittle: ClockText.editAlarm,
+                                    ));
+                                  },
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ClockText.edit,
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      AppSpace.width20,
+                                      Icon(Icons.edit),
+                                    ],
+                                  ),
+                                ),
+                                AppSpace.height20,
+                                GestureDetector(
+                                  onTap: () {
+                                    alarmcontroller.deleteAlarm(index);
+                                    Get.back();
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ClockText.delete,
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      AppSpace.width20,
+                                      Icon(Icons.delete),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ));
+                      },
+                      child: AlarmListviewWidget(
+                        leading: alarmcontroller.alarmTimes[index],
+                        index: index,
+                      ),
                     );
                   },
                 ),
@@ -47,7 +98,9 @@ class AlarmScreen extends StatelessWidget {
           color: Colors.white,
         ),
         onPressed: () {
-          Get.bottomSheet(AlarmBottomSheetWidget());
+          Get.bottomSheet(AlarmBottomSheetWidget(
+            tittle: ClockText.newAlarm,
+          ));
         },
       ),
     );

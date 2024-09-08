@@ -59,4 +59,8 @@ mixin CalculatorText {
 mixin ClockText {
   static const alarm = 'Alarm';
   static const select = 'Selected Time';
+  static const edit = 'edit';
+  static const editAlarm = 'edit alarm';
+  static const newAlarm = 'new alarm';
+  static const delete = 'delete';
 }
